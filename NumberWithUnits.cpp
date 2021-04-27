@@ -57,7 +57,7 @@ namespace ariel {
 
     int compare(const NumberWithUnits& obj1, const NumberWithUnits& obj2){
         double obj2_new_size = convertFromTo(obj2.size, obj2.unit, obj1.unit);
-        double compare = obj1.quantity - obj2_size;
+        double compare = obj1.size - obj2_new_size;
         int ans = 0;
         if(compare > EPS){
              ans = 1;
@@ -148,7 +148,7 @@ namespace ariel {
 
 
     ostream& operator<<(ostream& output, const NumberWithUnits& num){
-        out << num.size << "[" << num.unit << "]";
+        cout << num.size << "[" << num.unit << "]";
         return out;
     }
 
@@ -164,7 +164,7 @@ namespace ariel {
             }
             input>>suff;
         }
-        if (units.find(inp_t) != units.end()) {
+        if (units.find(inp) != units.end()) {
             num.size = n;
             num.unit = inp;
         }
