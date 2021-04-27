@@ -34,12 +34,12 @@ namespace ariel
         NumberWithUnits operator--(int); 
 
        
-        friend bool operator>(const NumberWithUnits &n1, const NumberWithUnits &n2);
-        friend bool operator>=(const NumberWithUnits &n1, const NumberWithUnits &n2);
-        friend bool operator<(const NumberWithUnits &n1, const NumberWithUnits &n2);
-        friend bool operator<=(const NumberWithUnits &n1, const NumberWithUnits &n2);
-        friend bool operator==(const NumberWithUnits &n1, const NumberWithUnits &n2);
-        friend bool operator!=(const NumberWithUnits &n1, const NumberWithUnits &n2);
+        bool operator>(const NumberWithUnits &n1, const NumberWithUnits &n2);
+        bool operator>=(const NumberWithUnits &n1, const NumberWithUnits &n2);
+        bool operator<(const NumberWithUnits &n1, const NumberWithUnits &n2);
+        bool operator<=(const NumberWithUnits &n1, const NumberWithUnits &n2);
+        bool operator==(const NumberWithUnits &n1, const NumberWithUnits &n2);
+        bool operator!=(const NumberWithUnits &n1, const NumberWithUnits &n2);
 
         NumberWithUnits operator*(double x) const;
         NumberWithUnits& operator*=(double x);
