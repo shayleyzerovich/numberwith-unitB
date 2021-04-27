@@ -1,51 +1,68 @@
-#include <iostream>
-#include <fstream>
 #include <string>
+#include <iostream>
 #include <map>
 
-namespace ariel
-{
-    class NumberWithUnits
-    {
+
+namespace ariel{
+
+class NumberWithUnits{
+
 
     private:
-        double num;
-        std::string unit;
+      double value;
+	    std::string type;   
 
     public:
-        NumberWithUnits(double num, const std::string &unit);
+  
+        NumberWithUnits(double value, const std::string& type);
 
-        static void read_units(std::ifstream &units_file);
+        double getVal() const{
+          return this->value;
+        }
 
-        //Six accounting operators
-        NumberWithUnits operator+(const NumberWithUnits &n2);
-        NumberWithUnits operator-(const NumberWithUnits &n2);
-        NumberWithUnits &operator+=(const NumberWithUnits &n2);
-        NumberWithUnits &operator-=(const NumberWithUnits &n2);
-        NumberWithUnits operator+();
+        std::string getType() const{
+          return this->type;
+        }
+
+        static void read_units(std::ifstream& f);
+
+        //prefix increment  
+        NumberWithUnits& operator++();
+        NumberWithUnits& operator--();
+
+        //postfix increment
+        NumberWithUnits operator++(int dummy_flag_for_postfix_increment);
+        NumberWithUnits operator--(int dummy_flag_for_postfix_increment);
+
+        //unary
+        NumberWithUnits operator+(); 
         NumberWithUnits operator-();
 
-        //Six comparison operators
-        friend bool operator>(const NumberWithUnits &n1, const NumberWithUnits &n2);
-        friend bool operator>=(const NumberWithUnits &n1, const NumberWithUnits &n2);
-        friend bool operator<(const NumberWithUnits &n1, const NumberWithUnits &n2);
-        friend bool operator<=(const NumberWithUnits &n1, const NumberWithUnits &n2);
-        friend bool operator==(const NumberWithUnits &n1, const NumberWithUnits &n2);
-        friend bool operator!=(const NumberWithUnits &n1, const NumberWithUnits &n2);
+        // arithmetic operators
+        NumberWithUnits& operator+=(const NumberWithUnits& c) ;
+        NumberWithUnits& operator-=(const NumberWithUnits& c) ;
+        NumberWithUnits operator+(const NumberWithUnits& c);
+        NumberWithUnits operator-(const NumberWithUnits& c);
 
-        //Increase by 1 (++) and decrease by 1 (--) before and after the number
-         NumberWithUnits &operator++(); //++n
-         NumberWithUnits operator++(int); //n++
-         NumberWithUnits &operator--(); //--n
-         NumberWithUnits operator--(int); //n--
+        //output , input
+        friend std::ostream& operator<<(std::ostream& output, const NumberWithUnits& c);
+        friend std::istream& operator>>(std::istream& input, NumberWithUnits& c);
 
-        //Multiplication by real number
-        friend NumberWithUnits operator*(const NumberWithUnits &n, double x);
-        friend NumberWithUnits operator*(double x, const NumberWithUnits &n);
-        NumberWithUnits &operator*=(double x);
+        //bool Comparisons
+        friend bool operator==(const NumberWithUnits& c1, const NumberWithUnits& c2);
+        friend bool operator!=(const NumberWithUnits& c1, const NumberWithUnits& c2);
+        friend bool operator<(const NumberWithUnits& c1, const NumberWithUnits& c2);	
+        friend bool operator>(const NumberWithUnits& c1, const NumberWithUnits& c2);
+        friend bool operator<=(const NumberWithUnits& c1, const NumberWithUnits& c2);
+        friend bool operator>=(const NumberWithUnits& c1, const NumberWithUnits& c2);
 
-        //Input and output operator
-        friend std::ostream &operator<<(std::ostream &output, const NumberWithUnits &n);
-        friend std::istream &operator>>(std::istream &input, NumberWithUnits &n);
-    };
+         //mult
+        friend  NumberWithUnits operator*(const NumberWithUnits& c1, const double num);
+        friend  NumberWithUnits operator*(const double num, const NumberWithUnits& c1);
+
+
+
+  };
+
 }
+
