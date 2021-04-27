@@ -149,7 +149,7 @@ namespace ariel {
 
     ostream& operator<<(ostream& output, const NumberWithUnits& num){
         cout << num.size << "[" << num.unit << "]";
-        return out;
+        return output;
     }
 
     istream& operator>>(istream& input, NumberWithUnits& num){
