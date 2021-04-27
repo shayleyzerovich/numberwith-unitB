@@ -47,6 +47,6 @@ namespace ariel {
 
      
         friend ostream& operator<<(ostream& output, const NumberWithUnits& num);
-        friend istream& operator>>(istream& in, NumberWithUnits& num);
+        friend istream& operator>>(istream& input, NumberWithUnits& num);
     };
 }
