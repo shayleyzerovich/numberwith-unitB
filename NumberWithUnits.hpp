@@ -9,19 +9,19 @@ class NumberWithUnits{
 
 
     private:
-      double value;
-	    std::string type;   
+      double size;
+	    std::string unit;   
 
     public:
   
-        NumberWithUnits(double value, const std::string& type);
+        NumberWithUnits(double size, const std::string& unit);
 
         double getVal() const{
-          return this->value;
+          return this->size;
         }
 
-        std::string getType() const{
-          return this->type;
+        std::string getUnit() const{
+          return this->unit;
         }
 
         static void read_units(std::ifstream& f);
@@ -49,16 +49,16 @@ class NumberWithUnits{
         friend std::istream& operator>>(std::istream& input, NumberWithUnits& c);
 
         //bool Comparisons
-        friend bool operator==(const NumberWithUnits& c1, const NumberWithUnits& c2);
-        friend bool operator!=(const NumberWithUnits& c1, const NumberWithUnits& c2);
-        friend bool operator<(const NumberWithUnits& c1, const NumberWithUnits& c2);	
-        friend bool operator>(const NumberWithUnits& c1, const NumberWithUnits& c2);
-        friend bool operator<=(const NumberWithUnits& c1, const NumberWithUnits& c2);
-        friend bool operator>=(const NumberWithUnits& c1, const NumberWithUnits& c2);
+        bool operator==(const NumberWithUnits& c1, const NumberWithUnits& c2);
+        bool operator!=(const NumberWithUnits& c1, const NumberWithUnits& c2);
+        bool operator<(const NumberWithUnits& c1, const NumberWithUnits& c2);	
+        bool operator>(const NumberWithUnits& c1, const NumberWithUnits& c2);
+        bool operator<=(const NumberWithUnits& c1, const NumberWithUnits& c2);
+        bool operator>=(const NumberWithUnits& c1, const NumberWithUnits& c2);
 
          //mult
-        friend  NumberWithUnits operator*(const NumberWithUnits& c1, const double num);
-        friend  NumberWithUnits operator*(const double num, const NumberWithUnits& c1);
+        NumberWithUnits operator*(const NumberWithUnits& c1, const double num);
+        NumberWithUnits operator*(const double num, const NumberWithUnits& c1);
 
 
 
