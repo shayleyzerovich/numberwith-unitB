@@ -19,7 +19,7 @@ namespace ariel{
     double convert(double size, const string& unit1, const string& unit2){
         if(unit1 == unit2) {return size;} 
         if(units[unit1][unit2] == 0){ 
-            throw invalid_argument{"Unable to convert - ["+unit1+"] to ["+unit2+"]"};
+            throw invalid_argument{"can't convert"};
         }
         return size*units[unit1][unit2];
     }
@@ -37,14 +37,14 @@ namespace ariel{
             units[unit2][unit1]= num1/num2;
             
             for(auto &pair : units[unit1]) {
-                double unitTemp = units[unit2][unit1] * pair.second;
-                units[unit2][pair.first] = unitTemp;
-                units[pair.first][unit2] = 1/unitTemp;            }
+                double temp = units[unit2][unit1] * pair.second;
+                units[unit2][pair.first] = temp;
+                units[pair.first][unit2] = 1/temp;            }
 
             for(auto &pair : units[unit2]) {
-                double unitTemp = units[unit1][unit2] * pair.second;
-                units[unit1][pair.first] = unitTemp;
-                units[pair.first][unit1] = 1/unitTemp;
+                double temp = units[unit1][unit2] * pair.second;
+                units[unit1][pair.first] = temp;
+                units[pair.first][unit1] = 1/temp;
             }
         }
     }
