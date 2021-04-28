@@ -7,21 +7,21 @@ using namespace ariel;
 
 namespace ariel{
 
-    const double eps = 0.00001;
+    const double EPS = 0.00001;
     static map<string, map<string, double> > units;
 
-    NumberWithUnits :: NumberWithUnits(double value, const string& type){
-        units.at(type);
-        this->value=value;
-        this->type=type;
+    NumberWithUnits :: NumberWithUnits(double size, const string& unit){
+        units.at(unit);
+        this->size=size;
+        this->unit=unit;
     }
 
-    double convert(double value, const string& unit1, const string& unit2){
-        if(unit1 == unit2) {return value;} //same type
+    double convert(double size, const string& unit1, const string& unit2){
+        if(unit1 == unit2) {return size;} //same unit
         if(units[unit1][unit2] == 0){ //It is impossible to connect them
             throw invalid_argument{"Unable to convert - ["+unit1+"] to ["+unit2+"]"};
         }
-        return value*units[unit1][unit2];
+        return size*units[unit1][unit2];
     }
 
     void NumberWithUnits::read_units(ifstream& file){
@@ -52,85 +52,85 @@ namespace ariel{
 
 //input , output
        ostream& operator<<(ostream& output, const NumberWithUnits& c){
-         return output << c.value << "[" << c.type << "]";
+         return output << c.size << "[" << c.unit << "]";
        }
 
 
         istream& operator>>(istream& input, NumberWithUnits& c) {
-            double value = 0;
-            string type;
+            double size = 0;
+            string unit;
             char ch = ']';
-            input >> value >> ch;
+            input >> size >> ch;
             while(ch != ']') {
-                if(ch != '[') { type.insert(type.end(), ch); }
+                if(ch != '[') { unit.insert(unit.end(), ch); }
                 input >> ch;
             }
 
-            if(units[type].empty()){throw invalid_argument{"error unit"};};
-                c.value = value;
-                c.type = type;
+            if(units[unit].empty()){throw invalid_argument{"error unit"};};
+                c.size = size;
+                c.unit = unit;
                 return input;
             }
         
 
     NumberWithUnits& NumberWithUnits::operator+=(const NumberWithUnits &c) {
-    this->value += convert(c.value, c.type, this->type);
+    this->size += convert(c.size, c.unit, this->unit);
     return *this;
     }
 
     NumberWithUnits& NumberWithUnits::operator-=(const NumberWithUnits& c) {
-    this->value -= convert(c.value, c.type, this->type);
+    this->size -= convert(c.size, c.unit, this->unit);
     return *this;
     }
 
     NumberWithUnits NumberWithUnits::operator+(const NumberWithUnits& c) {
-        double cVal = convert(c.value, c.type, this->type);
-        double temp = this->value + cVal;
-        NumberWithUnits ans(temp, this->type);
+        double cVal = convert(c.size, c.unit, this->unit);
+        double temp = this->size + cVal;
+        NumberWithUnits ans(temp, this->unit);
         return ans;
     }
 
      NumberWithUnits NumberWithUnits::operator-(const NumberWithUnits& c){
-        double cVal = convert(c.value, c.type, this->type);
-        double temp = this->value - cVal;
-        NumberWithUnits ans(temp, this->type);
+        double cVal = convert(c.size, c.unit, this->unit);
+        double temp = this->size - cVal;
+        NumberWithUnits ans(temp, this->unit);
         return ans;
     }
 
     NumberWithUnits NumberWithUnits::operator+() { //unary
-        NumberWithUnits ans(+this->value , this->type);
+        NumberWithUnits ans(+this->size , this->unit);
         return ans;
     }
 
     NumberWithUnits NumberWithUnits::operator-() { //unary
-        NumberWithUnits ans(-this->value, this->type);
+        NumberWithUnits ans(-this->size, this->unit);
         return ans;
     }
 
     NumberWithUnits& NumberWithUnits::operator++(){//prefix increment  
-            ++(this->value);
+            ++(this->size);
             return *this;
         }
 
 
     NumberWithUnits& NumberWithUnits::operator--(){
-            --(this->value);
+            --(this->size);
             return *this;
         }
 
    
     NumberWithUnits NumberWithUnits::operator++(int dummy_flag_for_postfix_increment){
-            double d = (this->value)++;
-            return  NumberWithUnits(d , this->type);
+            double d = (this->size)++;
+            return  NumberWithUnits(d , this->unit);
         }
 
     NumberWithUnits NumberWithUnits::operator--(int dummy_flag_for_postfix_increment){
-            double d = (this->value)--;
-            return  NumberWithUnits(d , this->type);        }
+            double d = (this->size)--;
+            return  NumberWithUnits(d , this->unit);        }
 
 
 	bool operator==(const NumberWithUnits& c1, const NumberWithUnits& c2){
-        return (abs(c1.value - convert(c2.value, c2.type, c1.type)) <= eps);
+        return (abs(c1.size - convert(c2.size, c2.unit, c1.unit)) <= eps);
          }
 
 	bool operator!=(const NumberWithUnits& c1, const NumberWithUnits& c2){
@@ -138,11 +138,11 @@ namespace ariel{
          }
 
     bool operator<(const NumberWithUnits& c1, const NumberWithUnits& c2){
-        return ((c1.value - convert(c2.value, c2.type, c1.type)) < 0 );
+        return ((c1.size - convert(c2.size, c2.unit, c1.unit)) < 0 );
          }
 
 	bool operator>(const NumberWithUnits& c1, const NumberWithUnits& c2){
-        return ((c1.value - convert(c2.value, c2.type, c1.type)) >  0);
+        return ((c1.size - convert(c2.size, c2.unit, c1.unit)) >  0);
          }
 
 	bool operator<=(const NumberWithUnits& c1, const NumberWithUnits& c2){
@@ -155,10 +155,10 @@ namespace ariel{
 
 
 	NumberWithUnits operator*(const NumberWithUnits& c1, const double num){
-        return NumberWithUnits(c1.value*num , c1.type);
+        return NumberWithUnits(c1.size*num , c1.unit);
          }
 
     NumberWithUnits operator*(const double num, const NumberWithUnits& c1 ){
-        return NumberWithUnits(num*c1.value,c1.type);
+        return NumberWithUnits(num*c1.size,c1.unit);
          }
    }
