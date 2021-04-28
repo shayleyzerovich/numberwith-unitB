@@ -40,7 +40,7 @@ class NumberWithUnits{
         NumberWithUnits& operator-=(const NumberWithUnits& n) ;
        
         NumberWithUnits operator*(const NumberWithUnits& n, const double num);
-        NumberWithUnits operator*(const double num, const NumberWithUnits& n);
+        friend NumberWithUnits operator*(const double num, const NumberWithUnits& n);
 
         bool operator==(const NumberWithUnits& n1, const NumberWithUnits& n2);
         bool operator!=(const NumberWithUnits& n1, const NumberWithUnits& n2);
