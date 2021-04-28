@@ -57,8 +57,8 @@ namespace ariel{
             return *this;
     }
        NumberWithUnits NumberWithUnits::operator++(int n){
-            double d = (this->size)++;
-            return  NumberWithUnits(d , this->unit);
+            double x = (this->size)++;
+            return  NumberWithUnits(x , this->unit);
     }
        NumberWithUnits NumberWithUnits::operator+(const NumberWithUnits& n) {
         double nSize = convert(n.size, n.unit, this->unit);
