@@ -39,15 +39,15 @@ class NumberWithUnits{
         NumberWithUnits& operator+=(const NumberWithUnits& n) ;
         NumberWithUnits& operator-=(const NumberWithUnits& n) ;
        
-        NumberWithUnits operator*(const NumberWithUnits& n, const double num);
+        friend NumberWithUnits operator*(const NumberWithUnits& n, const double num);
         friend NumberWithUnits operator*(const double num, const NumberWithUnits& n);
 
-        bool operator==(const NumberWithUnits& n1, const NumberWithUnits& n2);
-        bool operator!=(const NumberWithUnits& n1, const NumberWithUnits& n2);
-        bool operator<(const NumberWithUnits& n1, const NumberWithUnits& n2);	
-        bool operator>(const NumberWithUnits& n1, const NumberWithUnits& n2);
-        bool operator<=(const NumberWithUnits& n1, const NumberWithUnits& n2);
-        bool operator>=(const NumberWithUnits& n1, const NumberWithUnits& n2);
+        friend bool operator==(const NumberWithUnits& n1, const NumberWithUnits& n2);
+        friend bool operator!=(const NumberWithUnits& n1, const NumberWithUnits& n2);
+        friend bool operator<(const NumberWithUnits& n1, const NumberWithUnits& n2);	
+        friend bool operator>(const NumberWithUnits& n1, const NumberWithUnits& n2);
+        friend bool operator<=(const NumberWithUnits& n1, const NumberWithUnits& n2);
+        friend bool operator>=(const NumberWithUnits& n1, const NumberWithUnits& n2);
 	
         friend std::ostream& operator<<(std::ostream& output, const NumberWithUnits& n);
         friend std::istream& operator>>(std::istream& input, NumberWithUnits& n);
