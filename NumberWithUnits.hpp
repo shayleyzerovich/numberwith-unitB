@@ -16,7 +16,7 @@ class NumberWithUnits{
   
         NumberWithUnits(double size, const std::string& unit);
 
-        double getVal() const{
+        double getUnit() const{
           return this->size;
         }
 
